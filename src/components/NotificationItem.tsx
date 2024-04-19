@@ -1,24 +1,19 @@
-import { useState } from "react";
-
-type Notification = {
+export type NotificationProp = {
   id: number;
   profile: string;
   name: string;
   content: string;
   time: string;
-  unread: boolean;
   message?: string;
   postImage?: string;
 };
 
 type NotificationItemProps = {
-  notification: Notification;
-  key: number;
+  notification: NotificationProp;
+  unread: boolean;
 };
 
-const NotificationItem = ({ notification, key }: NotificationItemProps) => {
-  const [unread, setUnread] = useState(notification.unread);
-
+const NotificationItem = ({ notification, unread }: NotificationItemProps) => {
   const unreadStyle = unread && "bg-natural-light-grayish-100";
 
   const renderMessage = (
@@ -32,7 +27,6 @@ const NotificationItem = ({ notification, key }: NotificationItemProps) => {
   );
   return (
     <div
-      key={key}
       className={`flex px-4 py-3 md:py-4 ${unreadStyle} rounded-md cursor-pointer hover:bg-natural-light-grayish-100`}
     >
       {/* profile pic */}
@@ -50,7 +44,7 @@ const NotificationItem = ({ notification, key }: NotificationItemProps) => {
           <span className="text-natural-dark-grayish-blue md:text-sm">
             {notification.content}
           </span>
-          {notification.unread && (
+          {unread && (
             <span className="bg-primary-red w-2 h-2 rounded-lg inline-block ml-2"></span>
           )}
         </p>
